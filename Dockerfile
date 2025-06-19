@@ -1,9 +1,9 @@
-FROM gradle:7.4.0-jdk17
+FROM gradle:7.4.0-jdk22
 
-WORKDIR .
+WORKDIR /app
 
-COPY .
+COPY . .
 
 RUN gradle installDist
 
-CMD ./build/install/app/bin/app
+CMD ./build/install/secondvers/bin/secondvers
