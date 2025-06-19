@@ -9,7 +9,7 @@ public class WelcomeController {
 
     @GetMapping("/welcome")
     public String getWelcome() {
-        return "Welcome to Spring";
+        return "nenaviju programirovanie i gepei";
     }
 
 }
