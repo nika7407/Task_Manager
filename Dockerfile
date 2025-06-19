@@ -8,4 +8,4 @@ RUN chmod +x ./gradlew
 
 RUN ./gradlew installDist
 
-CMD ./build/install/secondvers/bin/secondvers
+CMD ./build/install/app/bin/app
