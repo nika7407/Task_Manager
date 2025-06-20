@@ -1,0 +1,12 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  application:
+    name: "dev"
+  datasource:
+    driver-class-name: "org.h2.Driver"
+
+    username: "sa"
+    password: "123"
