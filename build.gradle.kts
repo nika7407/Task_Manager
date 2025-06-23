@@ -17,18 +17,45 @@ application {
 	mainClass.set("hexlet.code.AppApplication")
 }
 dependencies {
+	// Runtime
 	runtimeOnly("com.h2database:h2")
+
+	// Spring Boot
 	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	//password encryption
+	implementation("org.springframework.security:spring-security-crypto:6.5.0")
+
+	// Apache Commons
+	implementation("org.apache.commons:commons-lang3:3.3.2")
+
+	// Validation API
+	implementation("jakarta.validation:jakarta.validation-api:3.1.1")
+	implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
+
+
+	// Lombok
+	compileOnly("org.projectlombok:lombok:1.18.38")
+	annotationProcessor("org.projectlombok:lombok:1.18.38")
+
+	// MapStruct
+	implementation("org.mapstruct:mapstruct:1.5.5.Final")
+	annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
+
+	// Optional: for nullable JSON support
+	implementation("org.openapitools:jackson-databind-nullable:0.2.6")
+
+	// Testing
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.data:spring-data-jpa:3.5.0")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.mapstruct:mapstruct:1.5.5.Final")
-	implementation("jakarta.validation:jakarta.validation-api:3.1.1")
-	implementation("org.projectlombok:lombok:1.18.38")
-
+    // faker
+	testImplementation("net.datafaker:datafaker:2.4.2")
+	implementation("net.datafaker:datafaker:2.4.3")
+	//asserting
+	testImplementation("net.javacrumbs.json-unit:json-unit-assertj:4.1.1")
 }
+
 
 tasks.withType<Test> {
 	useJUnitPlatform()
@@ -44,5 +71,9 @@ tasks.jacocoTestReport {
 		xml.required.set(true)
 		html.required.set(true)
 	}
+}
+
+tasks.withType<JavaCompile> {
+	options.annotationProcessorPath = configurations.annotationProcessor.get()
 }
 

@@ -7,6 +7,7 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,8 +18,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
+import hexlet.code.Model.BaseEntity;
 import java.time.LocalDate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -27,7 +30,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class User {
+public class User implements BaseEntity {
 
 //    id – уникальный идентификатор пользователя, генерируется автоматически
 //    firstName - имя пользователя
@@ -36,6 +39,8 @@ public class User {
 //    password - пароль
 //    createdAt - дата создания (регистрации) пользователя
 //    updatedAt – дата обновления данных пользователя
+
+    private static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -48,6 +53,7 @@ public class User {
     private String lastName;
 
     @NotBlank
+    @Size(min = 3, max = 100)
     private String password;
 
     @Email
@@ -59,4 +65,8 @@ public class User {
 
     @LastModifiedDate
     private LocalDate updatedAt;
+
+    public void setPassword(String password) {
+        this.password = PASSWORD_ENCODER.encode(password);
+    }
 }

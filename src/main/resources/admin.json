@@ -1,0 +1,14 @@
+[
+  {
+    "email": "hexlet@example.com",
+    "password": "qwerty",
+    "firstName": "nika",
+    "lastName": "7407"
+  },
+  {
+    "email": "jack@google.com",
+    "firstName": "Jack",
+    "lastName": "Jons",
+    "password": "some-password"
+  }
+]
