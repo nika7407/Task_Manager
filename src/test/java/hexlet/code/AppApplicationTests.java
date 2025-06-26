@@ -47,8 +47,28 @@ class AppApplicationTests {
 	@BeforeEach
 	public void add() throws IOException {
 		// adding into repo users from test path
-		init.initUsersFromJsonFile("src/test/resources/testUsers.json");
+		init.initUsersFromJsonFile("src/test/resources/fixtures/testUsers.json");
+
 	}
+	private String getAuthHeader() throws Exception {
+		String json = """
+        {
+          "username": "hexlet@example.com",
+          "password": "qwerty"
+        }
+        """;
+
+		var result = mockMvc.perform(post("/api/login")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(json))
+				.andExpect(status().isOk())
+				.andReturn();
+
+		var token = result.getResponse().getContentAsString();
+		return "Bearer " + token;
+	}
+
+
 
 	@AfterEach
 	public void clean() {
@@ -62,7 +82,8 @@ class AppApplicationTests {
 		User user = new User();
 		var us = userRepository.findByEmail("datoQaji@Gmail.com");
 
-		var result = mockMvc.perform(get("/api/users/" + us.get().getId()))
+		var result = mockMvc.perform(get("/api/users/" + us.get().getId())
+				.header("Authorization", getAuthHeader()))
 				.andExpect(status().isOk())
 				.andReturn();
 
@@ -78,9 +99,25 @@ class AppApplicationTests {
 	}
 
 	@Test
+	public void authTest() throws Exception {
+		String json = """
+        {
+          "username": "hexlet@example.com",
+          "password": "qwerty"
+        }
+        """;
+
+		var result = mockMvc.perform(post("/api/login")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(json))
+				.andExpect(status().isOk());
+	}
+
+	@Test
 	public void getThatNotExists() throws Exception {
 
-		var result = mockMvc.perform(get("/api/users/9999999999"))
+		var result = mockMvc.perform(get("/api/users/9999999999")
+				.header("Authorization", getAuthHeader()))
 				.andExpect(status().isNotFound())
 				.andReturn();
 	}
@@ -88,9 +125,10 @@ class AppApplicationTests {
 	@Test
 	public void testCreateUserSuccessfully() throws Exception {
 		// Create test user data
-		String jsonText = Files.readString(Path.of("src/test/resources/testUser.json"));
+		String jsonText = Files.readString(Path.of("src/test/resources/fixtures/testUser.json"));
 
 		var response = mockMvc.perform(post("/api/users")
+						.header("Authorization", getAuthHeader())
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(jsonText))
 				.andExpect(status().isCreated())
@@ -109,9 +147,10 @@ class AppApplicationTests {
 	@Test
 	public void testCreateUserWithWrongData() throws Exception {
 
-		String jsonText = Files.readString(Path.of("src/test/resources/incorrectTestUser.json"));
+		String jsonText = Files.readString(Path.of("src/test/resources/fixtures/incorrectTestUser.json"));
 
 		var response = mockMvc.perform(post("/api/users")
+						.header("Authorization", getAuthHeader())
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(jsonText))
 				.andExpect(status().isBadRequest())
@@ -129,6 +168,7 @@ class AppApplicationTests {
 				""";
 		Long id = userRepository.findByEmail("datoQaji@Gmail.com").get().getId();
 		var response = mockMvc.perform(put("/api/users/" + id)
+						.header("Authorization", getAuthHeader())
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(jsonText))
 				.andExpect(status().isOk())
@@ -146,9 +186,9 @@ class AppApplicationTests {
 
 		Long id = userRepository.findByEmail("datoQaji@Gmail.com").get().getId();
 
-		var response = mockMvc.perform(delete("/api/users" + id))
-				.andExpect(status().isNotFound());
-
+		var response = mockMvc.perform(delete("/api/users/" + id)
+				.header("Authorization", getAuthHeader()))
+				.andExpect(status().isNoContent());
 	}
 
 

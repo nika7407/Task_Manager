@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,10 +44,14 @@ public class UserController {
     }
 
     @GetMapping("")
-    public List<UserDTO> getUsers() {
-        List<UserDTO> list = new ArrayList<>();
-        userRepository.findAll().forEach(user -> list.add(userMapper.map(user)));
-        return list;
+    public ResponseEntity<List<UserDTO>> getUsers() {
+        var users = userRepository.findAll();
+        var result = users.stream()
+                .map(userMapper::map)
+                .toList();
+        return ResponseEntity.ok()
+                .header("X-Total-Count", String.valueOf(users.size()))
+                .body(result);
     }
 
     @PostMapping("")

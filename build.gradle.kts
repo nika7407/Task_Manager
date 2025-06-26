@@ -54,6 +54,19 @@ dependencies {
 	implementation("net.datafaker:datafaker:2.4.3")
 	//asserting
 	testImplementation("net.javacrumbs.json-unit:json-unit-assertj:4.1.1")
+	//auth
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
+	testImplementation("org.springframework.security:spring-security-test")
+	implementation("org.springframework.security.oauth:spring-security-oauth2:2.5.2.RELEASE")
+	testImplementation ("org.springframework.security:spring-security-test")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+	implementation("org.springframework.security:spring-security-jwt:1.1.1.RELEASE")
+	runtimeOnly("org.springframework.security:spring-security-jwt:1.1.1.RELEASE")
+
+
 }
 
 
