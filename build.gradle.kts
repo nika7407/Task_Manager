@@ -34,6 +34,10 @@ dependencies {
 	implementation("jakarta.validation:jakarta.validation-api:3.1.1")
 	implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
 
+	//db for prod
+	implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
+	runtimeOnly ("org.postgresql:postgresql")
+
 
 	// Lombok
 	compileOnly("org.projectlombok:lombok:1.18.38")
