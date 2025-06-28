@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-COPY src/main/resources/keys /app/src/main/resources/keys
+COPY src/main/resources/certs /app/src/main/resources/certs
 
 RUN chmod +x ./gradlew
 
