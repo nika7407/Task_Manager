@@ -10,6 +10,8 @@ RUN chmod +x ./gradlew
 
 RUN ./gradlew installDist
 
+ENV SPRING_PROFILES_ACTIVE=production
+
 CMD ["./build/install/app/bin/app"]
 
 
