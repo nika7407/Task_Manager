@@ -1,16 +1,13 @@
 package hexlet.code.mapper;
 
 import hexlet.code.Model.User;
-import hexlet.code.dto.UserCreateDTO;
-import hexlet.code.dto.UserDTO;
-import hexlet.code.dto.UserUpdateDTO;
+import hexlet.code.dto.User.UserCreateDTO;
+import hexlet.code.dto.User.UserDTO;
+import hexlet.code.dto.User.UserUpdateDTO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
-import org.springframework.context.annotation.Bean;
 
 @Mapper(
         //uses = {JsonNullableMapper.class, ReferenceMapper.class},

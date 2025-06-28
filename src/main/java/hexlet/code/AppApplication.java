@@ -30,7 +30,9 @@ public class AppApplication {
 		return args -> {
 			try {
 				initialization.initUsersFromJsonFile("src/main/resources/fixtures/admin.json");
-				System.out.println("Dev users initialized!");
+				System.out.println("users initialized!");
+				initialization.initTaskStatusesFromJsonFile("src/main/resources/fixtures/taskStatuses.json");
+				System.out.println("task statuses initialized!");
 			} catch (IOException e) {
 				System.err.println("Failed to initialize dev users: " + e.getMessage());
 			}

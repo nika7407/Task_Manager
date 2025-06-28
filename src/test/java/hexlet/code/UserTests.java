@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class AppApplicationTests {
+class UserTests {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -46,17 +46,13 @@ class AppApplicationTests {
 
 	@BeforeEach
 	public void add() throws IOException {
-		// adding into repo users from test path
+		userRepository.deleteAll();
 		init.initUsersFromJsonFile("src/test/resources/fixtures/testUsers.json");
 
 	}
 	private String getAuthHeader() throws Exception {
-		String json = """
-        {
-          "username": "hexlet@example.com",
-          "password": "qwerty"
-        }
-        """;
+		String json = Files.readString(Path.of("src/test/resources/fixtures/auth.json"));
+
 
 		var result = mockMvc.perform(post("/api/login")
 						.contentType(MediaType.APPLICATION_JSON)
@@ -100,12 +96,7 @@ class AppApplicationTests {
 
 	@Test
 	public void authTest() throws Exception {
-		String json = """
-        {
-          "username": "hexlet@example.com",
-          "password": "qwerty"
-        }
-        """;
+		String json = Files.readString(Path.of("src/test/resources/fixtures/auth.json"));
 
 		var result = mockMvc.perform(post("/api/login")
 						.contentType(MediaType.APPLICATION_JSON)

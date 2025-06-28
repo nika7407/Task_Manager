@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Draft",
+    "slug": "draft"
+  },
+  {
+    "name": "To Review",
+    "slug": "to_review"
+  },
+  {
+    "name": "To Be Fixed",
+    "slug": "to_be_fixed"
+  },
+  {
+    "name": "To Publish",
+    "slug": "to_publish"
+  },
+  {
+    "name": "Published",
+    "slug": "published"
+  }
+]

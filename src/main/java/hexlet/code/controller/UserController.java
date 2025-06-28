@@ -1,16 +1,14 @@
 package hexlet.code.controller;
 
 import hexlet.code.Model.User;
-import hexlet.code.dto.UserCreateDTO;
-import hexlet.code.dto.UserDTO;
-import hexlet.code.dto.UserUpdateDTO;
+import hexlet.code.dto.User.UserCreateDTO;
+import hexlet.code.dto.User.UserDTO;
+import hexlet.code.dto.User.UserUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
