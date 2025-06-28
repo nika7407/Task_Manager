@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY . .
 
+COPY src/main/resources/keys /app/src/main/resources/keys
+
 RUN chmod +x ./gradlew
 
 RUN ./gradlew installDist
