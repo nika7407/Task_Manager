@@ -24,7 +24,7 @@ public class AppApplication {
 		SpringApplication.run(AppApplication.class, args);
 	}
 
-
+	@Profile("dev")
 	@Bean
 	ApplicationRunner initUsers(Initialization initialization) {
 		return args -> {
