@@ -100,4 +100,32 @@ public class Initialization {
 
         taskRepository.saveAll(list);
     }
+
+    /**
+     * Reads users from a JSON file and saves them to the database.
+     *
+     * @param string Path to the JSON file (e.g., "src/main/resources/users.json")
+     */
+    public void initTasksFromString(String string) throws IOException {
+
+
+        // System.out.println("json text before mapping: "+jsonContent);
+        List<TaskCreateDTO> users = Arrays.asList(objectMapper.readValue(string, TaskCreateDTO[].class));
+
+        users.forEach(user -> System.out.println(user.toString()));
+        List<Task> list = new ArrayList<>();
+        users.forEach(user -> list.add(taskMapper.map(user)));
+
+//        users.forEach(u -> {
+//            System.out.println("DTO: " + u.getEmail() + " " + u.getFirstName() + " " + u.getLastName() + " " + u.getPassword());
+//        });
+
+
+//        list.forEach(u -> {
+//            System.out.println("ENTITY: " + u.getEmail() + " " + u.getFirstName() + " " + u.getLastName() + " " + u.getPassword());
+//        });
+
+
+        taskRepository.saveAll(list);
+    }
 }

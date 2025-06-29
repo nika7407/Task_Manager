@@ -47,6 +47,7 @@ class UserTests {
 	@BeforeEach
 	public void add() throws IOException {
 		userRepository.deleteAll();
+
 		init.initUsersFromJsonFile("src/test/resources/fixtures/testUsers.json");
 
 	}
@@ -69,7 +70,7 @@ class UserTests {
 	@AfterEach
 	public void clean() {
 		// cleaning them after every test
-		userRepository.deleteAll();
+		 userRepository.deleteAll();
 	}
 
 	@Test

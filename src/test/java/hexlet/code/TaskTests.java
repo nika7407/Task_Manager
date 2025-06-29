@@ -2,14 +2,11 @@ package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.Model.Task;
-import hexlet.code.Model.TaskStatus;
-import hexlet.code.Model.User;
 import hexlet.code.Util.Initialization;
+import hexlet.code.Util.Util;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
-import net.datafaker.Faker;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +22,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -50,14 +50,15 @@ class TaskTests {
 
     @Autowired
     private Initialization init;
+    @Autowired
+    private Util util;
 
     @BeforeAll
     public void initUsers() throws IOException {
 
-//        taskRepository.deleteAll();
-//        userRepository.deleteAll();
-//        init.initUsersFromJsonFile("src/test/resources/fixtures/testUsers.json");
-//        System.out.println(userRepository.findAll());
+        taskRepository.deleteAll();
+        userRepository.deleteAll();
+        init.initUsersFromJsonFile("src/test/resources/fixtures/testUsers.json");
 
     }
     @BeforeEach
@@ -65,8 +66,11 @@ class TaskTests {
         taskRepository.deleteAll();
         taskStatusRepository.deleteAll();
 
+
         init.initTaskStatusesFromJsonFile("src/test/resources/fixtures/taskStatuses.json");
-        init.initTasksFromJsonFile("src/test/resources/fixtures/tasks.json");
+        var tasksJson = util.changeID(Files.readString(Path.of("src/test/resources/fixtures/tasks.json")));
+
+        init.initTasksFromString(tasksJson);
 
     }
 
@@ -99,7 +103,7 @@ class TaskTests {
 
     @Test
     public void testCreateTask() throws Exception {
-        String json = Files.readString(Path.of("src/test/resources/fixtures/testTask.json"));
+        String json = util.changeID(Files.readString(Path.of("src/test/resources/fixtures/testTask.json")));
 
         var result = mockMvc.perform(post("/api/tasks")
                         .header("Authorization", getAuthHeader())
