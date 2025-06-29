@@ -3,6 +3,7 @@ package hexlet.code;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.Model.TaskStatus;
 import hexlet.code.Util.Initialization;
+import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -39,6 +40,8 @@ class TaskStatusTests {
 
     @Autowired
     private ObjectMapper om;
+    @Autowired
+    private TaskRepository taskRepository;
 
     private String getAuthHeader() throws Exception {
         String json = Files.readString(Path.of("src/test/resources/fixtures/auth.json"));
@@ -55,6 +58,9 @@ class TaskStatusTests {
 
     @BeforeEach
     void setup() throws Exception {
+        taskRepository.deleteAll();      // Сначала удалить задачи
+        taskStatusRepository.deleteAll();
+        userRepository.deleteAll();
         init.initUsersFromJsonFile("src/test/resources/fixtures/testUsers.json");
         init.initTaskStatusesFromJsonFile("src/test/resources/fixtures/taskStatuses.json");
     }
