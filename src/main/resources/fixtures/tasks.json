@@ -9,7 +9,7 @@
     "title": "Add user profile",
     "content": "Implement user profile view and edit features",
     "status": "to_be_fixed",
-    "assignee_id": 2
+    "assignee_id": 1
   },
   {
     "title": "Optimize database queries",

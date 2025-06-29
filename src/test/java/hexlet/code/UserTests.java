@@ -3,6 +3,7 @@ package hexlet.code;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.Model.User;
 import hexlet.code.Util.Initialization;
+import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.UserRepository;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.AfterEach;
@@ -42,10 +43,14 @@ class UserTests {
 	private UserRepository userRepository;
 
 	@Autowired
+	private TaskRepository taskRepository;
+
+	@Autowired
 	private Initialization init;
 
 	@BeforeEach
 	public void add() throws IOException {
+		taskRepository.deleteAll();
 		userRepository.deleteAll();
 
 		init.initUsersFromJsonFile("src/test/resources/fixtures/testUsers.json");
@@ -70,7 +75,7 @@ class UserTests {
 	@AfterEach
 	public void clean() {
 		// cleaning them after every test
-		 userRepository.deleteAll();
+		// userRepository.deleteAll();
 	}
 
 	@Test
