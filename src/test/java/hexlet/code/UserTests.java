@@ -1,7 +1,7 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.Model.User;
+import hexlet.code.model.User;
 import hexlet.code.Util.Initialization;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.UserRepository;

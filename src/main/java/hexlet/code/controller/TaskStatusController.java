@@ -1,6 +1,6 @@
 package hexlet.code.controller;
 
-import hexlet.code.Model.TaskStatus;
+import hexlet.code.model.TaskStatus;
 import hexlet.code.dto.TaskStatus.TaskStatusCreateDTO;
 import hexlet.code.dto.TaskStatus.TaskStatusDTO;
 import hexlet.code.dto.TaskStatus.TaskStatusUpdateDTO;

@@ -1,13 +1,15 @@
 package hexlet.code.controller;
 
 
-import hexlet.code.Model.Task;
+import hexlet.code.dto.Task.TaskParamsDTO;
+import hexlet.code.model.Task;
 import hexlet.code.dto.Task.TaskCreateDTO;
 import hexlet.code.dto.Task.TaskDTO;
 import hexlet.code.dto.Task.TaskUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.TaskMapper;
 import hexlet.code.repository.TaskRepository;
+import hexlet.code.specification.TaskSpecification;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +37,9 @@ public class TaskController {
     @Autowired
     private TaskMapper taskMapper;
 
+    @Autowired
+    private  TaskSpecification taskSpecification;
+
 
     @GetMapping("/{id}")
     public TaskDTO getTaskById(@PathVariable Long id) {
@@ -44,15 +49,18 @@ public class TaskController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<TaskDTO>> getTasks() {
-        var list = taskRepository.findAll();
-        List<TaskDTO> mappedList = new ArrayList<>();
-        list.forEach(task -> mappedList.add(taskMapper.map(task)));
+    public ResponseEntity<List<TaskDTO>> getTasks(TaskParamsDTO params) {
+        var spec = taskSpecification.build(params);
+        var tasks = taskRepository.findAll(spec);
+        var mappedTasks = tasks.stream()
+                .map(taskMapper::map)
+                .toList();
 
         return ResponseEntity.ok()
-                .header("X-Total-Count", String.valueOf(mappedList.size()))
-                .body(mappedList);
+                .header("X-Total-Count", String.valueOf(mappedTasks.size()))
+                .body(mappedTasks);
     }
+
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)

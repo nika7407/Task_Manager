@@ -1,7 +1,7 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.Model.TaskStatus;
+import hexlet.code.model.TaskStatus;
 import hexlet.code.Util.Initialization;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;

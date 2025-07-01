@@ -1,14 +1,12 @@
 package hexlet.code.Util;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.Model.Label;
-import hexlet.code.Model.Task;
-import hexlet.code.Model.TaskStatus;
-import hexlet.code.Model.User;
+import hexlet.code.model.Label;
+import hexlet.code.model.Task;
+import hexlet.code.model.TaskStatus;
+import hexlet.code.model.User;
 import hexlet.code.dto.Task.TaskCreateDTO;
 import hexlet.code.dto.TaskStatus.TaskStatusCreateDTO;
-import hexlet.code.dto.TaskStatus.TaskStatusDTO;
 import hexlet.code.dto.Label.LabelCreateDTO;
 import hexlet.code.dto.User.UserCreateDTO;
 import hexlet.code.mapper.LabelMapper;

@@ -1,8 +1,7 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.Model.Label;
-import hexlet.code.Model.Task;
+import hexlet.code.model.Label;
 import hexlet.code.Util.Initialization;
 import hexlet.code.Util.Util;
 import hexlet.code.repository.LabelRepository;

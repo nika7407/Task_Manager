@@ -1,6 +1,6 @@
 package hexlet.code.controller;
 
-import hexlet.code.Model.User;
+import hexlet.code.model.User;
 import hexlet.code.dto.User.UserCreateDTO;
 import hexlet.code.dto.User.UserDTO;
 import hexlet.code.dto.User.UserUpdateDTO;

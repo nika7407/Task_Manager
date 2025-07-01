@@ -12,6 +12,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @EnableJpaAuditing
 @SpringBootApplication

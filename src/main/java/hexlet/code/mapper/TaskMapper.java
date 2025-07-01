@@ -1,9 +1,9 @@
 package hexlet.code.mapper;
 
-import hexlet.code.Model.Label;
-import hexlet.code.Model.Task;
-import hexlet.code.Model.TaskStatus;
-import hexlet.code.Model.User;
+import hexlet.code.model.Label;
+import hexlet.code.model.Task;
+import hexlet.code.model.TaskStatus;
+import hexlet.code.model.User;
 import hexlet.code.dto.Task.TaskCreateDTO;
 import hexlet.code.dto.Task.TaskDTO;
 import hexlet.code.dto.Task.TaskUpdateDTO;

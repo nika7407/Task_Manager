@@ -1,8 +1,7 @@
 package hexlet.code.repository;
 
-import hexlet.code.Model.Label;
+import hexlet.code.model.Label;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.scheduling.config.Task;
 
 import java.util.List;
 import java.util.Optional;

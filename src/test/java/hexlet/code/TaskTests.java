@@ -1,7 +1,7 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.Model.Task;
+import hexlet.code.model.Task;
 import hexlet.code.Util.Initialization;
 import hexlet.code.Util.Util;
 import hexlet.code.repository.TaskRepository;
@@ -153,4 +153,12 @@ class TaskTests {
                         .header("Authorization", getAuthHeader()))
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    void testFilterByStatusSlug() throws Exception {
+        mockMvc.perform(get("/api/tasks?status=in_progress")
+                .header("Authorization", getAuthHeader()))
+                .andExpect(status().isOk());
+    }
+
 }
