@@ -3,8 +3,11 @@ package hexlet.code.dto.Task;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,6 +25,6 @@ public class TaskUpdateDTO {
     private String content;
     private String status;
     private Long assignee_id;
-
+    private Set<Long> taskLabelIds = new HashSet<>();
 
 }

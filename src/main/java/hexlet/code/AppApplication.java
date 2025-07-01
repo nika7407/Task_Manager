@@ -2,15 +2,13 @@ package hexlet.code;
 
 import hexlet.code.Util.Initialization;
 import hexlet.code.component.RsaKeyProperties;
-import hexlet.code.controller.UserController;
-import jdk.jshell.execution.Util;
 import net.datafaker.Faker;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.io.IOException;
@@ -24,19 +22,36 @@ public class AppApplication {
 		SpringApplication.run(AppApplication.class, args);
 	}
 
-	@Profile("dev")
+
 	@Bean
 	ApplicationRunner initUsers(Initialization initialization) {
 		return args -> {
 			try {
 				initialization.initUsersFromJsonFile("src/main/resources/fixtures/admin.json");
 				System.out.println("users initialized!");
+			} catch (IOException | DataIntegrityViolationException e) {
+				System.err.println("Failed to initialize users: " + e.getMessage());
+			}
+
+			try {
 				initialization.initTaskStatusesFromJsonFile("src/main/resources/fixtures/taskStatuses.json");
 				System.out.println("task statuses initialized!");
+			} catch (IOException | DataIntegrityViolationException e) {
+				System.err.println("Failed to initialize task statuses: " + e.getMessage());
+			}
+
+			try {
 				initialization.initTasksFromJsonFile("src/main/resources/fixtures/tasks.json");
 				System.out.println("tasks initialized!");
-			} catch (IOException e) {
-				System.err.println("Failed to initialize dev users: " + e.getMessage());
+			} catch (IOException | DataIntegrityViolationException e) {
+				System.err.println("Failed to initialize tasks: " + e.getMessage());
+			}
+
+			try {
+				initialization.initLabelsFromJsonFile("src/main/resources/fixtures/labels.json");
+				System.out.println("labels initialized!");
+			} catch (IOException | DataIntegrityViolationException e) {
+				System.err.println("Failed to initialize labels: " + e.getMessage());
 			}
 		};
 	}

@@ -4,6 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 public class TaskCreateDTO {
 
@@ -23,5 +26,6 @@ public class TaskCreateDTO {
     private Long assignee_id;
     private String content;
     private String status;
+    private Set<Long> taskLabelIds = new HashSet<>();
 
 }

@@ -2,16 +2,20 @@ package hexlet.code.Util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hexlet.code.Model.Label;
 import hexlet.code.Model.Task;
 import hexlet.code.Model.TaskStatus;
 import hexlet.code.Model.User;
 import hexlet.code.dto.Task.TaskCreateDTO;
 import hexlet.code.dto.TaskStatus.TaskStatusCreateDTO;
 import hexlet.code.dto.TaskStatus.TaskStatusDTO;
+import hexlet.code.dto.Label.LabelCreateDTO;
 import hexlet.code.dto.User.UserCreateDTO;
+import hexlet.code.mapper.LabelMapper;
 import hexlet.code.mapper.TaskMapper;
 import hexlet.code.mapper.TaskStatusMapper;
 import hexlet.code.mapper.UserMapper;
+import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
@@ -48,6 +52,12 @@ public class Initialization {
 
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private LabelRepository labelRepository;
+
+    @Autowired
+    private LabelMapper labelMapper;
 
     /**
      * Reads users from a JSON file and saves them to the database.
@@ -102,9 +112,9 @@ public class Initialization {
     }
 
     /**
-     * Reads users from a JSON file and saves them to the database.
+     * Reads tasks from a string in json format and saves them to the database.
      *
-     * @param string Path to the JSON file (e.g., "src/main/resources/users.json")
+     * @param string tasks in json format
      */
     public void initTasksFromString(String string) throws IOException {
 
@@ -116,10 +126,10 @@ public class Initialization {
         List<Task> list = new ArrayList<>();
         users.forEach(user -> list.add(taskMapper.map(user)));
 
+//        Debug
 //        users.forEach(u -> {
 //            System.out.println("DTO: " + u.getEmail() + " " + u.getFirstName() + " " + u.getLastName() + " " + u.getPassword());
 //        });
-
 
 //        list.forEach(u -> {
 //            System.out.println("ENTITY: " + u.getEmail() + " " + u.getFirstName() + " " + u.getLastName() + " " + u.getPassword());
@@ -128,4 +138,19 @@ public class Initialization {
 
         taskRepository.saveAll(list);
     }
+
+    public void initLabelsFromJsonFile(String filePath) throws IOException {
+
+        String jsonContent = Files.readString(Paths.get(filePath));
+        List<LabelCreateDTO> users = Arrays.asList(objectMapper.readValue(jsonContent, LabelCreateDTO[].class));
+
+        List<Label> list = new ArrayList<>();
+
+        users.forEach(label-> list.add(labelMapper.map(label)));
+
+        labelRepository.saveAll(list);
+    }
+
+
+
 }

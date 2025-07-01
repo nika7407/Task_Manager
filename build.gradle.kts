@@ -36,6 +36,7 @@ dependencies {
 
 	//db for prod
 	implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.postgresql:postgresql:42.7.7")
 	runtimeOnly ("org.postgresql:postgresql")
 
 

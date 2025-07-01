@@ -1,5 +1,6 @@
 package hexlet.code.mapper;
 
+import hexlet.code.Model.Label;
 import hexlet.code.Model.Task;
 import hexlet.code.Model.TaskStatus;
 import hexlet.code.Model.User;
@@ -11,6 +12,9 @@ import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Mapper(
         componentModel = "spring",
@@ -29,12 +33,14 @@ public abstract class TaskMapper {
     @Mapping(source = "assignee_id", target = "assignee", qualifiedByName = "idToAssignee")
     @Mapping(source = "content", target = "description")
     @Mapping(source = "status", target = "taskStatus", qualifiedByName = "slugToTaskStatus")
+    @Mapping(target = "labels", source = "taskLabelIds", qualifiedByName = "idsToLabels")
     public abstract Task map(TaskCreateDTO createDTO);
 
     @Mapping(source = "name", target = "title")
     @Mapping(source = "assignee", target = "assignee_id", qualifiedByName = "assigneeToId")
     @Mapping(source = "description", target = "content")
     @Mapping(source = "taskStatus", target = "status", qualifiedByName = "taskToSlug")
+    @Mapping(source = "labels", target = "taskLabelIds", qualifiedByName = "labelsToIds")
     public abstract TaskDTO map(Task task);
 
     @Named("slugToTaskStatus")
@@ -67,5 +73,26 @@ public abstract class TaskMapper {
     @Mapping(source = "assignee_id", target = "assignee", qualifiedByName = "idToAssignee")
     @Mapping(source = "content", target = "description")
     @Mapping(source = "status", target = "taskStatus", qualifiedByName = "slugToTaskStatus")
+    @Mapping(target = "labels", source = "taskLabelIds", qualifiedByName = "idsToLabels")
     public abstract void update(@MappingTarget Task task, TaskUpdateDTO updateDTO);
+
+    @Named("idsToLabels")
+    Set<Label> idsToLabels(Set<Long> ids) {
+        if (ids == null) {
+            return null;
+        }
+        return ids.stream()
+                .map(id -> {
+                    Label label = new Label();
+                    label.setId(id);
+                    return label;
+                }).collect(Collectors.toSet());
+    }
+
+    @Named("labelsToIds")
+    Set<Long> labelsToIds(Set<Label> labels) {
+        return labels == null ? null : labels.stream()
+                .map(Label::getId)
+                .collect(Collectors.toSet());
+    }
 }
