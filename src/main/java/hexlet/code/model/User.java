@@ -48,10 +48,8 @@ public class User implements UserDetails, BaseEntity {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @NotBlank
     private String firstName;
 
-    @NotBlank
     private String lastName;
 
     @NotBlank
