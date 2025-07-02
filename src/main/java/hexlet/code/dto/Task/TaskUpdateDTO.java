@@ -25,6 +25,6 @@ public class TaskUpdateDTO {
     private String content;
     private String status;
     private Long assignee_id;
-    private Set<Long> taskLabelIds = new HashSet<>();
+    private Set<Long> taskLabelIds;
 
 }
