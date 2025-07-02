@@ -2,6 +2,7 @@ package hexlet.code;
 
 import hexlet.code.Util.Initialization;
 import hexlet.code.component.RsaKeyProperties;
+import io.sentry.Sentry;
 import net.datafaker.Faker;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -54,6 +55,11 @@ public class AppApplication {
 			} catch (IOException | DataIntegrityViolationException e) {
 				System.err.println("Failed to initialize labels: " + e.getMessage());
 			}
+            try {
+                throw new Exception("This is a test.");
+            } catch (Exception e) {
+                Sentry.captureException(e);
+            }
 		};
 	}
 

@@ -4,6 +4,7 @@ plugins {
 	id("jacoco")
 	id("org.springframework.boot") version "3.5.0"
 	id("io.spring.dependency-management") version "1.1.7"
+	id ("io.sentry.jvm.gradle") version "5.8.0"
 }
 
 group = "hexlet.code"
@@ -93,5 +94,20 @@ tasks.jacocoTestReport {
 
 tasks.withType<JavaCompile> {
 	options.annotationProcessorPath = configurations.annotationProcessor.get()
+}
+
+
+
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+}
+
+sentry {
+	includeSourceContext = true
+	org = "niks-s4"
+	projectName = "java-spring-boot"
+	authToken = System.getenv("SENTRY_AUTH_TOKEN")
 }
 
