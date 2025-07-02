@@ -22,9 +22,9 @@ public class TaskCreateDTO {
     @NotBlank
     private String title;
     private Integer index;
-    @NotNull
     private Long assignee_id;
     private String content;
+    @NotBlank
     private String status;
     private Set<Long> taskLabelIds = new HashSet<>();
 
