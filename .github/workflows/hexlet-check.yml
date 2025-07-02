@@ -15,14 +15,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
 
       - name: Hexlet project check
         uses: hexlet/project-action@release
