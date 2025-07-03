@@ -4,15 +4,17 @@ import hexlet.code.model.Label;
 import hexlet.code.model.Task;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
-import hexlet.code.dto.Task.TaskCreateDTO;
-import hexlet.code.dto.Task.TaskDTO;
-import hexlet.code.dto.Task.TaskUpdateDTO;
+import hexlet.code.dto.task.TaskCreateDTO;
+import hexlet.code.dto.task.TaskDTO;
+import hexlet.code.dto.task.TaskUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
+import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,6 +30,9 @@ public abstract class TaskMapper {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private LabelRepository labelRepository;
 
     @Mapping(source = "title", target = "name")
     @Mapping(source = "assignee_id", target = "assignee", qualifiedByName = "idToAssignee")
@@ -78,15 +83,10 @@ public abstract class TaskMapper {
 
     @Named("idsToLabels")
     Set<Label> idsToLabels(Set<Long> ids) {
-        if (ids == null) {
+        if (ids == null || ids.isEmpty()) {
             return null;
         }
-        return ids.stream()
-                .map(id -> {
-                    Label label = new Label();
-                    label.setId(id);
-                    return label;
-                }).collect(Collectors.toSet());
+        return new HashSet<>(labelRepository.findAllById(ids));
     }
 
     @Named("labelsToIds")

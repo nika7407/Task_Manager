@@ -1,14 +1,14 @@
 package hexlet.code.controller;
 
-import hexlet.code.model.TaskStatus;
-import hexlet.code.dto.TaskStatus.TaskStatusCreateDTO;
-import hexlet.code.dto.TaskStatus.TaskStatusDTO;
-import hexlet.code.dto.TaskStatus.TaskStatusUpdateDTO;
+import hexlet.code.dto.taskStatus.TaskStatusCreateDTO;
+import hexlet.code.dto.taskStatus.TaskStatusDTO;
+import hexlet.code.dto.taskStatus.TaskStatusUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.TaskStatusMapper;
+import hexlet.code.model.TaskStatus;
 import hexlet.code.repository.TaskStatusRepository;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,13 +26,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/task_statuses")
+@AllArgsConstructor
 public class TaskStatusController {
 
-    @Autowired
-    private TaskStatusMapper taskStatusMapper;
-    @Autowired
-    private TaskStatusRepository taskStatusRepository;
-
+    private final TaskStatusMapper taskStatusMapper;
+    private final TaskStatusRepository taskStatusRepository;
 
     @GetMapping("/{id}")
     public TaskStatusDTO getStatusByID(@PathVariable Long id) {
@@ -66,14 +64,13 @@ public class TaskStatusController {
 
     @PutMapping("/{id}")
     public TaskStatusDTO update(@RequestBody TaskStatusUpdateDTO updateDTO, @PathVariable Long id) {
-        if (!taskStatusRepository.existsById(id)) {
-            throw new ResourceNotFoundException("not found by id= " + id);
-        }
-        TaskStatus task = taskStatusRepository.getById(id);
-        taskStatusMapper.update(updateDTO, task);
-        taskStatusRepository.save(task);
 
-        return taskStatusMapper.map(task);
+        TaskStatus status = taskStatusRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("not found by " + id));
+
+        taskStatusMapper.update(updateDTO, status);
+        taskStatusRepository.save(status);
+        return taskStatusMapper.map(status);
     }
 
     @DeleteMapping("/{id}")

@@ -1,9 +1,9 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hexlet.code.util.Initialization;
 import hexlet.code.model.Task;
-import hexlet.code.Util.Initialization;
-import hexlet.code.Util.Util;
+import hexlet.code.util.Util;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;

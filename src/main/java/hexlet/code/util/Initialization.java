@@ -1,14 +1,14 @@
-package hexlet.code.Util;
+package hexlet.code.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.model.Label;
 import hexlet.code.model.Task;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
-import hexlet.code.dto.Task.TaskCreateDTO;
-import hexlet.code.dto.TaskStatus.TaskStatusCreateDTO;
-import hexlet.code.dto.Label.LabelCreateDTO;
-import hexlet.code.dto.User.UserCreateDTO;
+import hexlet.code.dto.task.TaskCreateDTO;
+import hexlet.code.dto.taskStatus.TaskStatusCreateDTO;
+import hexlet.code.dto.label.LabelCreateDTO;
+import hexlet.code.dto.user.UserCreateDTO;
 import hexlet.code.mapper.LabelMapper;
 import hexlet.code.mapper.TaskMapper;
 import hexlet.code.mapper.TaskStatusMapper;

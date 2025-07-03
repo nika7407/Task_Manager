@@ -1,9 +1,10 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hexlet.code.util.Initialization;
 import hexlet.code.model.Label;
-import hexlet.code.Util.Initialization;
-import hexlet.code.Util.Util;
+import hexlet.code.util.Util;
 import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -65,23 +67,22 @@ class LabelTest {
     @BeforeAll
     public void initUsers() throws IOException {
 
-        labelRepository.deleteAll();
+
         taskRepository.deleteAll();
+        labelRepository.deleteAll();
         userRepository.deleteAll();
         taskStatusRepository.deleteAll();
         init.initUsersFromJsonFile("src/test/resources/fixtures/testUsers.json");
         init.initTaskStatusesFromJsonFile("src/test/resources/fixtures/taskStatuses.json");
 
 
+
     }
 
     @BeforeEach
     public void setup() throws Exception {
-
-
-        labelRepository.deleteAll();
         taskRepository.deleteAll();
-
+        labelRepository.deleteAll();
 
         var tasksJson = util.changeID(Files.readString(Path.of("src/test/resources/fixtures/tasks.json")));
 
@@ -90,12 +91,11 @@ class LabelTest {
         testLabel = new Label();
         testLabel.setName("bug");
         labelRepository.save(testLabel);
-
     }
+
 
     @Test
     @WithMockUser
-    @Transactional
     void testLabelWithTask() {
         var task = taskRepository.findAll().getFirst();
         var id = task.getId();
@@ -103,7 +103,8 @@ class LabelTest {
         labelSet.add(testLabel);
         task.setLabels(labelSet);
         taskRepository.save(task);
-        var result = taskRepository.findById(id).get().getLabels();
+        var result = taskRepository.findWithLabelsById(id).get().getLabels();
+
 
         assertThat(result)
                 .hasSize(1)
@@ -137,9 +138,19 @@ class LabelTest {
     @Test
     @WithMockUser
     void testGetAllLabels() throws Exception {
-        mockMvc.perform(get("/api/labels"))
+        var expected = labelRepository.findAll();
+
+        var result = mockMvc.perform(get("/api/labels"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(1));
+                .andReturn();
+
+        var body = result.getResponse().getContentAsString();
+
+        var actual = objectMapper.readValue(body, new TypeReference<List<Label>>() {});
+
+        assertThat(actual)
+                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("id", "createdAt")
+                .isEqualTo(expected);
     }
 
     @Test

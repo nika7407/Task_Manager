@@ -1,16 +1,17 @@
 package hexlet.code.controller;
 
 
-import hexlet.code.dto.Task.TaskParamsDTO;
+import hexlet.code.dto.task.TaskParamsDTO;
 import hexlet.code.model.Task;
-import hexlet.code.dto.Task.TaskCreateDTO;
-import hexlet.code.dto.Task.TaskDTO;
-import hexlet.code.dto.Task.TaskUpdateDTO;
+import hexlet.code.dto.task.TaskCreateDTO;
+import hexlet.code.dto.task.TaskDTO;
+import hexlet.code.dto.task.TaskUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.TaskMapper;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.specification.TaskSpecification;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,21 +25,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/tasks")
+@AllArgsConstructor
 public class TaskController {
 
-    @Autowired
-    private TaskRepository taskRepository;
-
-    @Autowired
-    private TaskMapper taskMapper;
-
-    @Autowired
-    private  TaskSpecification taskSpecification;
+    private final TaskRepository taskRepository;
+    private final TaskMapper taskMapper;
+    private final TaskSpecification taskSpecification;
 
 
     @GetMapping("/{id}")
@@ -73,10 +69,8 @@ public class TaskController {
 
     @PutMapping("/{id}")
     public TaskDTO update(@RequestBody TaskUpdateDTO updateDTO, @PathVariable Long id) {
-        if (!taskRepository.existsById(id)) {
-            throw new ResourceNotFoundException("task not found by id = " + id);
-        }
-        Task task = taskRepository.getById(id);
+        var task = taskRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("task not found by id= " + id));
         taskMapper.update(task, updateDTO);
         taskRepository.save(task);
 

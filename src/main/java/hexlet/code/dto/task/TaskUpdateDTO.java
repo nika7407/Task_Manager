@@ -1,12 +1,9 @@
-package hexlet.code.dto.Task;
+package hexlet.code.dto.task;
 
 
 import lombok.Getter;
 import lombok.Setter;
-import org.openapitools.jackson.nullable.JsonNullable;
 
-import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter

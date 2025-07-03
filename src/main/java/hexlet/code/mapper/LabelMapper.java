@@ -2,8 +2,8 @@ package hexlet.code.mapper;
 
 
 import hexlet.code.model.Label;
-import hexlet.code.dto.Label.LabelCreateDTO;
-import hexlet.code.dto.Label.LabelDTO;
+import hexlet.code.dto.label.LabelCreateDTO;
+import hexlet.code.dto.label.LabelDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;

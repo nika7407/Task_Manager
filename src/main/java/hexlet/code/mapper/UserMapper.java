@@ -1,9 +1,9 @@
 package hexlet.code.mapper;
 
 import hexlet.code.model.User;
-import hexlet.code.dto.User.UserCreateDTO;
-import hexlet.code.dto.User.UserDTO;
-import hexlet.code.dto.User.UserUpdateDTO;
+import hexlet.code.dto.user.UserCreateDTO;
+import hexlet.code.dto.user.UserDTO;
+import hexlet.code.dto.user.UserUpdateDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;

@@ -1,12 +1,12 @@
 package hexlet.code.controller;
 
 
-import hexlet.code.dto.Label.LabelCreateDTO;
-import hexlet.code.dto.Label.LabelDTO;
+import hexlet.code.dto.label.LabelCreateDTO;
+import hexlet.code.dto.label.LabelDTO;
 import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.LabelMapper;
 import hexlet.code.repository.LabelRepository;
-import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +25,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/labels")
+@AllArgsConstructor
 public class LabelController {
 
-    @Autowired
-    private LabelRepository labelRepository;
-    @Autowired
-    private LabelMapper labelMapper;
+    private final LabelRepository labelRepository;
+
+    private final LabelMapper labelMapper;
 
     @GetMapping("")
     public ResponseEntity<List<LabelDTO>> getLabels() {

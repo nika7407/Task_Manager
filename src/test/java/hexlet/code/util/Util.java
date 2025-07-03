@@ -1,4 +1,4 @@
-package hexlet.code.Util;
+package hexlet.code.util;
 
 import hexlet.code.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

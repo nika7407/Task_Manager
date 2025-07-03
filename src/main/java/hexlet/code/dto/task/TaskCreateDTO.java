@@ -1,7 +1,6 @@
-package hexlet.code.dto.Task;
+package hexlet.code.dto.task;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 import java.util.HashSet;

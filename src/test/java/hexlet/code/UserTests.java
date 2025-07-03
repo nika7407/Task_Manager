@@ -1,8 +1,8 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hexlet.code.util.Initialization;
 import hexlet.code.model.User;
-import hexlet.code.Util.Initialization;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.UserRepository;
 import net.datafaker.Faker;
@@ -160,10 +160,11 @@ class UserTests {
 		String jsonText = """
 				{
 				    "firstName": "araDato",
-				    "email": "datoAraQaji@gmail.com"
+				    "lastName": "testLastName",
+				    "email": "hexlet@example.com"
 				}
 				""";
-		Long id = userRepository.findByEmail("datoQaji@Gmail.com").get().getId();
+		Long id = userRepository.findByEmail("hexlet@example.com").get().getId();
 		var response = mockMvc.perform(put("/api/users/" + id)
 						.header("Authorization", getAuthHeader())
 						.contentType(MediaType.APPLICATION_JSON)
@@ -173,15 +174,15 @@ class UserTests {
 		var body = response.getResponse().getContentAsString();
 		assertThatJson(body).and(
 				a -> a.node("firstName").isEqualTo("araDato"),
-				a -> a.node("lastName").isEqualTo("jiqia"),
-				a -> a.node("email").isEqualTo("datoAraQaji@gmail.com")
+				a -> a.node("lastName").isEqualTo("testLastName"),
+				a -> a.node("email").isEqualTo("hexlet@example.com")
 		);
 	}
 
 	@Test
 	public void testDelete() throws Exception {
 
-		Long id = userRepository.findByEmail("datoQaji@Gmail.com").get().getId();
+		Long id = userRepository.findByEmail("hexlet@example.com").get().getId();
 
 		var response = mockMvc.perform(delete("/api/users/" + id)
 				.header("Authorization", getAuthHeader()))

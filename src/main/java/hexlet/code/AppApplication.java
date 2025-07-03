@@ -1,6 +1,6 @@
 package hexlet.code;
 
-import hexlet.code.Util.Initialization;
+import hexlet.code.util.Initialization;
 import hexlet.code.component.RsaKeyProperties;
 import io.sentry.Sentry;
 import net.datafaker.Faker;
@@ -13,7 +13,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 @EnableJpaAuditing
 @SpringBootApplication

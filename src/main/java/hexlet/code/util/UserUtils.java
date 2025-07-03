@@ -1,5 +1,6 @@
-package hexlet.code.Util;
+package hexlet.code.util;
 
+import hexlet.code.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,16 @@ public class UserUtils {
             return null;
         }
         var email = authentication.getName();
-        return userRepository.findByEmail(email).get();
+        return userRepository.findByEmail(email)
+                .orElseThrow(()-> new ResourceNotFoundException("user not found by email =" + email));
     }
+
+    public boolean isAuthor(Long id) {
+        var currentUser = getCurrentUser();
+        if (currentUser == null) {
+            return false;
+        }
+        return currentUser.getId().equals(id);
+    }
+
 }

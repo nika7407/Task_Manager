@@ -1,5 +1,4 @@
 plugins {
-	java
 	application
 	id("jacoco")
 	id("org.springframework.boot") version "3.5.0"
