@@ -14,6 +14,7 @@ spring:
 rsa:
   private-key: classpath:certs/private.pem
   public-key: classpath:certs/public.pem
+
 sentry:
   dsn: https://ca727f56e2174289f4ac6e3457761a5b@o4509598314463232.ingest.de.sentry.io/4509598325080144
   # Add data like request headers and IP for users,
