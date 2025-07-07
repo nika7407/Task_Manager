@@ -11,6 +11,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import jakarta.validation.constraints.Email;
@@ -42,8 +43,6 @@ public class User implements UserDetails, BaseEntity {
 //    createdAt - дата создания (регистрации) пользователя
 //    updatedAt – дата обновления данных пользователя
 
-    private static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
-
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
@@ -66,9 +65,6 @@ public class User implements UserDetails, BaseEntity {
     @LastModifiedDate
     private LocalDate updatedAt;
 
-    public void setPassword(String password) {
-        this.password = PASSWORD_ENCODER.encode(password);
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

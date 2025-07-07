@@ -157,13 +157,7 @@ class UserTests {
 	@Test
 	public void testUpdate() throws Exception {
 
-		String jsonText = """
-				{
-				    "firstName": "araDato",
-				    "lastName": "testLastName",
-				    "email": "hexlet@example.com"
-				}
-				""";
+		String jsonText = Files.readString(Path.of("src/test/resources/fixtures/updateUser.json"));
 		Long id = userRepository.findByEmail("hexlet@example.com").get().getId();
 		var response = mockMvc.perform(put("/api/users/" + id)
 						.header("Authorization", getAuthHeader())

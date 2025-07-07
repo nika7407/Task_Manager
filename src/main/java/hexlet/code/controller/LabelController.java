@@ -4,6 +4,7 @@ package hexlet.code.controller;
 import hexlet.code.dto.label.LabelCreateDTO;
 import hexlet.code.dto.label.LabelDTO;
 import hexlet.code.service.LabelService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,12 +43,12 @@ public class LabelController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public LabelDTO createLabel(@RequestBody LabelCreateDTO labelCreateDTO){
+    public LabelDTO createLabel(@Valid  @RequestBody LabelCreateDTO labelCreateDTO){
         return labelService.createLabel(labelCreateDTO);
     }
 
     @PutMapping("/{id}")
-    public LabelDTO update(@RequestBody LabelCreateDTO labelCreateDTO, @PathVariable Long id){
+    public LabelDTO update(@Valid @RequestBody LabelCreateDTO labelCreateDTO, @PathVariable Long id){
         return labelService.update(labelCreateDTO, id);
     }
 

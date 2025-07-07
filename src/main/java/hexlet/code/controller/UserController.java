@@ -41,7 +41,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     @PreAuthorize("@userUtils.isAuthor(#id)")
-    public UserDTO update(@RequestBody UserUpdateDTO updateDTO, @PathVariable Long id) {
+    public UserDTO update(@Valid @RequestBody UserUpdateDTO updateDTO, @PathVariable Long id) {
         return userService.updateUser(id, updateDTO);
     }
 

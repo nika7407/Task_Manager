@@ -120,12 +120,7 @@ class TaskTests {
     public void testUpdateTask() throws Exception {
         Task task = taskRepository.findAll().get(0);
 
-        String json = """
-            {
-              "title": "Updated Task Title",
-              "content": "Updated content"
-            }
-        """;
+        String json = Files.readString(Path.of("src/test/resources/fixtures/updateTask.json"));
 
         var result = mockMvc.perform(put("/api/tasks/" + task.getId())
                         .header("Authorization", getAuthHeader())

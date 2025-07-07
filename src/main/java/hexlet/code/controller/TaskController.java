@@ -40,7 +40,7 @@ public class TaskController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<TaskDTO>> getTasks(TaskParamsDTO params) {
+    public ResponseEntity<List<TaskDTO>> getTasks(@Valid TaskParamsDTO params) {
         var list = taskService.getTasks(params);
 
         return ResponseEntity.ok()
@@ -56,7 +56,7 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public TaskDTO update(@RequestBody TaskUpdateDTO updateDTO, @PathVariable Long id) {
+    public TaskDTO update(@Valid @RequestBody TaskUpdateDTO updateDTO, @PathVariable Long id) {
         return taskService.update(updateDTO, id);
     }
 

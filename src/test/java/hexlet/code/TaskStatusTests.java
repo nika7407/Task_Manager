@@ -97,12 +97,7 @@ class TaskStatusTests {
 
     @Test
     void testCreateStatus() throws Exception {
-        String json = """
-        {
-            "name": "in_progress",
-            "slug": "snail"
-        }
-        """;
+        String json = Files.readString(Path.of("src/test/resources/fixtures/createStatus.json"));
 
         var response = mockMvc.perform(post("/api/task_statuses")
                         .header("Authorization", getAuthHeader())
@@ -120,12 +115,7 @@ class TaskStatusTests {
         TaskStatus status = taskStatusRepository.findAll().getFirst();
         Long id = status.getId();
 
-        String json = """
-        {
-            "name": "updated_status",
-            "slug": "snail"
-        }
-        """;
+        String json = Files.readString(Path.of("src/test/resources/fixtures/updatedStatus.json"));
 
         var response = mockMvc.perform(put("/api/task_statuses/" + id)
                         .header("Authorization", getAuthHeader())
