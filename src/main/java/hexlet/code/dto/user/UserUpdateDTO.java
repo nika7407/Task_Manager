@@ -11,10 +11,10 @@ import lombok.Setter;
 @Setter
 public class UserUpdateDTO {
 
-    @NotBlank
+
     private String firstName;
 
-    @NotBlank
+
     private String lastName;
 
     @Email
