@@ -1,12 +1,12 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.util.Initialization;
 import hexlet.code.model.Task;
-import hexlet.code.util.Util;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
+import hexlet.code.util.Initialization;
+import hexlet.code.util.Util;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,9 +68,7 @@ class TaskTests {
 
 
         init.initTaskStatusesFromJsonFile("src/test/resources/fixtures/taskStatuses.json");
-        var tasksJson = util.changeID(Files.readString(Path.of("src/test/resources/fixtures/tasks.json")));
-
-        init.initTasksFromString(tasksJson);
+        init.initTasksFromJsonFile("src/test/resources/fixtures/tasks.json");
 
     }
 
@@ -103,7 +101,9 @@ class TaskTests {
 
     @Test
     public void testCreateTask() throws Exception {
-        String json = util.changeID(Files.readString(Path.of("src/test/resources/fixtures/testTask.json")));
+
+
+        String json = util.setTasksAsigneeId(Files.readString(Path.of("src/test/resources/fixtures/testTask.json")));
 
         var result = mockMvc.perform(post("/api/tasks")
                         .header("Authorization", getAuthHeader())

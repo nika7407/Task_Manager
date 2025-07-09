@@ -1,6 +1,5 @@
 {
   "title": "New Task Title",
   "content": "Details about the new task.",
-  "status": "to_be_fixed",
-  "assignee_id": TOCHANGE
+  "status": "to_be_fixed"
 }

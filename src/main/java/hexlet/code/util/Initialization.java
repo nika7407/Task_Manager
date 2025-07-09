@@ -1,18 +1,19 @@
 package hexlet.code.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.model.Label;
-import hexlet.code.model.Task;
-import hexlet.code.model.TaskStatus;
-import hexlet.code.model.User;
+import hexlet.code.dto.label.LabelCreateDTO;
 import hexlet.code.dto.task.TaskCreateDTO;
 import hexlet.code.dto.taskStatus.TaskStatusCreateDTO;
-import hexlet.code.dto.label.LabelCreateDTO;
 import hexlet.code.dto.user.UserCreateDTO;
+import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.LabelMapper;
 import hexlet.code.mapper.TaskMapper;
 import hexlet.code.mapper.TaskStatusMapper;
 import hexlet.code.mapper.UserMapper;
+import hexlet.code.model.Label;
+import hexlet.code.model.Task;
+import hexlet.code.model.TaskStatus;
+import hexlet.code.model.User;
 import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;
@@ -102,6 +103,12 @@ public class Initialization {
 
         users.forEach(task-> list.add(taskMapper.map(task)));
 
+        list.forEach(task -> {
+            var user = userRepository.findAll().stream().findFirst().orElseThrow(() ->
+                    new ResourceNotFoundException("user not found"));
+            task.setAssignee(user);
+        });
+
         taskRepository.saveAll(list);
     }
 
@@ -144,7 +151,6 @@ public class Initialization {
 
         labelRepository.saveAll(list);
     }
-
 
 
 }

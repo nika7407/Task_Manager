@@ -2,14 +2,14 @@ package hexlet.code;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.util.Initialization;
+import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.model.Label;
-import hexlet.code.util.Util;
 import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
-import jakarta.transaction.Transactional;
+import hexlet.code.util.Initialization;
+import hexlet.code.util.Util;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -66,17 +64,12 @@ class LabelTest {
 
     @BeforeAll
     public void initUsers() throws IOException {
-
-
         taskRepository.deleteAll();
         labelRepository.deleteAll();
         userRepository.deleteAll();
         taskStatusRepository.deleteAll();
         init.initUsersFromJsonFile("src/test/resources/fixtures/testUsers.json");
         init.initTaskStatusesFromJsonFile("src/test/resources/fixtures/taskStatuses.json");
-
-
-
     }
 
     @BeforeEach
@@ -84,9 +77,7 @@ class LabelTest {
         taskRepository.deleteAll();
         labelRepository.deleteAll();
 
-        var tasksJson = util.changeID(Files.readString(Path.of("src/test/resources/fixtures/tasks.json")));
-
-        init.initTasksFromString(tasksJson);
+        init.initTasksFromJsonFile("src/test/resources/fixtures/tasks.json");
 
         testLabel = new Label();
         testLabel.setName("bug");
@@ -103,8 +94,8 @@ class LabelTest {
         labelSet.add(testLabel);
         task.setLabels(labelSet);
         taskRepository.save(task);
-        var result = taskRepository.findWithLabelsById(id).get().getLabels();
-
+        var result = taskRepository.findWithLabelsById(id).orElseThrow(()->
+                new ResourceNotFoundException("tasks not found")).getLabels();
 
         assertThat(result)
                 .hasSize(1)

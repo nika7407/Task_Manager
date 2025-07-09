@@ -2,11 +2,13 @@ package hexlet.code.dto.task;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter
+@Setter
 public class TaskCreateDTO {
 
 //    {

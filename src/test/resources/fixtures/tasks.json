@@ -2,19 +2,16 @@
   {
     "title": "Fix login bug",
     "content": "Fix the login button not working in Safari",
-    "status": "draft",
-    "assignee_id": TOCHANGE
+    "status": "draft"
   },
   {
     "title": "Add user profile",
     "content": "Implement user profile view and edit features",
-    "status": "to_be_fixed",
-    "assignee_id": TOCHANGE
+    "status": "to_be_fixed"
   },
   {
     "title": "Optimize database queries",
     "content": "Reduce N+1 queries in task list page",
-    "status": "published",
-    "assignee_id": TOCHANGE
+    "status": "published"
   }
 ]
