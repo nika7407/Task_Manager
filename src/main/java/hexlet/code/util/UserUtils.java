@@ -1,12 +1,11 @@
 package hexlet.code.util;
 
 import hexlet.code.exception.ResourceNotFoundException;
+import hexlet.code.model.User;
+import hexlet.code.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-
-import hexlet.code.model.User;
-import hexlet.code.repository.UserRepository;
 
 @Component
 public class UserUtils {
@@ -20,7 +19,7 @@ public class UserUtils {
         }
         var email = authentication.getName();
         return userRepository.findByEmail(email)
-                .orElseThrow(()-> new ResourceNotFoundException("user not found by email =" + email));
+                .orElseThrow(() -> new ResourceNotFoundException("user not found by email =" + email));
     }
 
     public boolean isAuthor(Long id) {

@@ -1,17 +1,22 @@
 package hexlet.code.mapper;
 
-import hexlet.code.model.Label;
-import hexlet.code.model.Task;
-import hexlet.code.model.TaskStatus;
-import hexlet.code.model.User;
 import hexlet.code.dto.task.TaskCreateDTO;
 import hexlet.code.dto.task.TaskDTO;
 import hexlet.code.dto.task.TaskUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
+import hexlet.code.model.Label;
+import hexlet.code.model.Task;
+import hexlet.code.model.TaskStatus;
+import hexlet.code.model.User;
 import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
@@ -55,8 +60,8 @@ public abstract class TaskMapper {
     }
 
     @Named("taskToSlug")
-    public String  taskToSlug(TaskStatus task) {
-     return task.getSlug();
+    public String taskToSlug(TaskStatus task) {
+        return task.getSlug();
     }
 
     @Named("idToAssignee")
@@ -67,13 +72,15 @@ public abstract class TaskMapper {
         return userRepository.findById(assigneeId)
                 .orElseThrow(() -> new ResourceNotFoundException("User with id '" + assigneeId + "' not found"));
     }
+
     @Named("assigneeToId")
-    public Long  assigneeToId(User assignee) {
+    public Long assigneeToId(User assignee) {
         if (assignee == null) {
             return null;
         }
         return assignee.getId();
     }
+
     @Mapping(source = "title", target = "name")
     @Mapping(source = "assignee_id", target = "assignee", qualifiedByName = "idToAssignee")
     @Mapping(source = "content", target = "description")

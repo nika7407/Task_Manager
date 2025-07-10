@@ -89,7 +89,7 @@ public class Initialization {
 
         List<TaskStatus> list = new ArrayList<>();
 
-        users.forEach(user-> list.add(taskStatusMapper.map(user)));
+        users.forEach(user -> list.add(taskStatusMapper.map(user)));
 
         taskStatusRepository.saveAll(list);
     }
@@ -101,7 +101,7 @@ public class Initialization {
 
         List<Task> list = new ArrayList<>();
 
-        users.forEach(task-> list.add(taskMapper.map(task)));
+        users.forEach(task -> list.add(taskMapper.map(task)));
 
         list.forEach(task -> {
             var user = userRepository.findAll().stream().findFirst().orElseThrow(() ->
@@ -147,7 +147,7 @@ public class Initialization {
 
         List<Label> list = new ArrayList<>();
 
-        users.forEach(label-> list.add(labelMapper.map(label)));
+        users.forEach(label -> list.add(labelMapper.map(label)));
 
         labelRepository.saveAll(list);
     }

@@ -16,7 +16,7 @@ public class TaskParamsDTO {
 
     private Long assigneeId;
 
-    private  String status;
+    private String status;
 
-    private  Long labelId;
+    private Long labelId;
 }

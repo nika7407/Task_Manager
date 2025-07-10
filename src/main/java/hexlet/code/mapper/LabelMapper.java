@@ -1,9 +1,9 @@
 package hexlet.code.mapper;
 
 
-import hexlet.code.model.Label;
 import hexlet.code.dto.label.LabelCreateDTO;
 import hexlet.code.dto.label.LabelDTO;
+import hexlet.code.model.Label;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
@@ -22,5 +22,5 @@ public abstract class LabelMapper {
 
     public abstract Label map(LabelCreateDTO labelCreateDTO);
 
-   public abstract Label update(@MappingTarget Label label, LabelCreateDTO labelCreateDTO);
+    public abstract Label update(@MappingTarget Label label, LabelCreateDTO labelCreateDTO);
 }

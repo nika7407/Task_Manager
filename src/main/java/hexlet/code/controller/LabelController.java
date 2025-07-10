@@ -43,18 +43,18 @@ public class LabelController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public LabelDTO createLabel(@Valid  @RequestBody LabelCreateDTO labelCreateDTO){
+    public LabelDTO createLabel(@Valid @RequestBody LabelCreateDTO labelCreateDTO) {
         return labelService.createLabel(labelCreateDTO);
     }
 
     @PutMapping("/{id}")
-    public LabelDTO update(@Valid @RequestBody LabelCreateDTO labelCreateDTO, @PathVariable Long id){
+    public LabelDTO update(@Valid @RequestBody LabelCreateDTO labelCreateDTO, @PathVariable Long id) {
         return labelService.update(labelCreateDTO, id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable Long id) {
         labelService.delete(id);
     }
 

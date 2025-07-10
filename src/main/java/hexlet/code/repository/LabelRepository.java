@@ -9,6 +9,7 @@ import java.util.Set;
 
 public interface LabelRepository extends JpaRepository<Label, Long> {
     Optional<Label> findByName(String name);
+
     List<Label> findAllByNameIn(Set<String> names);
 
 }

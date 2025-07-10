@@ -3,10 +3,9 @@ package hexlet.code.specification;
 
 import hexlet.code.dto.task.TaskParamsDTO;
 import hexlet.code.model.Task;
+import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
-
-import jakarta.persistence.criteria.Join;
 
 @Component
 public class TaskSpecification {
