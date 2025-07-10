@@ -61,6 +61,7 @@ class TaskTests {
         init.initUsersFromJsonFile("src/test/resources/fixtures/testUsers.json");
 
     }
+
     @BeforeEach
     public void setup() throws Exception {
         taskRepository.deleteAll();
@@ -152,7 +153,7 @@ class TaskTests {
     @Test
     void testFilterByStatusSlug() throws Exception {
         mockMvc.perform(get("/api/tasks?status=in_progress")
-                .header("Authorization", getAuthHeader()))
+                        .header("Authorization", getAuthHeader()))
                 .andExpect(status().isOk());
     }
     //d

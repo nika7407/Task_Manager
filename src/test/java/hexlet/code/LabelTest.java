@@ -94,7 +94,7 @@ class LabelTest {
         labelSet.add(testLabel);
         task.setLabels(labelSet);
         taskRepository.save(task);
-        var result = taskRepository.findWithLabelsById(id).orElseThrow(()->
+        var result = taskRepository.findWithLabelsById(id).orElseThrow(() ->
                 new ResourceNotFoundException("tasks not found")).getLabels();
 
         assertThat(result)
@@ -137,7 +137,8 @@ class LabelTest {
 
         var body = result.getResponse().getContentAsString();
 
-        var actual = objectMapper.readValue(body, new TypeReference<List<Label>>() {});
+        var actual = objectMapper.readValue(body, new TypeReference<List<Label>>() {
+        });
 
         assertThat(actual)
                 .usingRecursiveFieldByFieldElementComparatorIgnoringFields("id", "createdAt")
