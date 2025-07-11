@@ -4,10 +4,7 @@ spring:
     url: jdbc:postgresql://dpg-d1alv4je5dus73eoav5g-a.oregon-postgres.render.com:5432/taskdb_anft
     username: taskdb_anft_user
     password: ${RENDER_POSTGRE_PASSWORD}
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
+
   application:
     name: "production"
 
