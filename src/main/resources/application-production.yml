@@ -1,7 +1,8 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: postgresql://task_manager_db_nz84_user:UTLFad5EmcEqnUv6SuOc5HkrdOZUrC0j@dpg-d2bsetre5dus738i23bg-a.oregon-postgres.render.com/task_manager_db_nz84
+    url: jdbc:postgresql://task_manager_db_nz84_user:UTLFad5EmcEqnUv6SuOc5HkrdOZUrC0j@dpg-d2bsetre5dus738i23bg-a.oregon-postgres.render.com/task_manager_db_nz84
+
     username: task_manager_db_nz84_user
     password: ${RENDER_POSTGRE_PASSWORD}
 
