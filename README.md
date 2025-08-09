@@ -12,6 +12,7 @@ The application is built using the **Spring Boot** framework.
 
 A deployed version is available at:  
 **[spring-manager.onrender.com](https://spring-manager.onrender.com)**
+to login use `hexlet@example.com` and `qwerty` as password
 
 ---  
 
